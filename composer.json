@@ -1,0 +1,13 @@
+{
+    "name": "jswh/rpc",
+    "description": "a simple rpc like package for api service",
+    "type": "lib",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "jswh",
+            "email": "jswh@jswh.me"
+        }
+    ],
+    "require": {}
+}
