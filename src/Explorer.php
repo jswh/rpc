@@ -1,6 +1,6 @@
 <?php
 //caoweijie@baixing.com
-namespace Service\RPC;
+namespace RPC;
 
 class Explorer {
     public function getClasses($rootDir) {

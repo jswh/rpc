@@ -1,8 +1,8 @@
 <?php
 //caoweijie@baixing.com
-namespace Service\RPC;
+namespace RPC;
 
-use Service\RPC\Exceptions\ParamsMissingException;
+use RPC\Exceptions\ParamsMissingException;
 
 class RPCCmder {
     private $apiNameSpace;

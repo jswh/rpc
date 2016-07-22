@@ -9,5 +9,10 @@
             "email": "jswh@jswh.me"
         }
     ],
+    "autoload": {
+        "psr-4":{
+            "RPC\\":"src/"
+        }
+    },
     "require": {}
 }

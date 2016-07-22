@@ -1,6 +1,5 @@
 <?php
-//caoweijie@baixing.com
-namespace Service\RPC;
+namespace RPC;
 
 class Annotation {
     private static $pool = [];
