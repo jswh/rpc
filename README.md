@@ -2,13 +2,16 @@
 
 ## installation
     composer require jswh/rpc
-## quick start width default application
+## quick start with default application
 ### index.php
+``` php
     <?php
     require __DIR__ . '/vendor/autoload.php';
     $app = new \RPC\Application('Api');
     echo $app->run();
+```
 ### your api file
+```php
     <?php
     namesapce Api;
     
@@ -23,12 +26,14 @@
             return 'Hello ' . $name . ' !'
         }
     }
+```
 ### start application
     php -S localhost:8000 index.php
 ### call api
     http://localhost:8000/Hello.hello?name=world
 ## write your own
 ### procedure parser
+```php
     <?php
     class MyParser implements RPC\interfaces\ProcedureParser {
         public function parse($path) {
@@ -41,7 +46,9 @@
             return $p;
         }
     }
+```
 ### logic
+```php
     <?php
     Annotation::registerMeta('method', 'GET|PUT|POST');
     $parser = new MyParser
@@ -60,3 +67,4 @@
 
         return json_encode($procedure->call($params));
     }
+```
