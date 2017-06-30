@@ -2,43 +2,35 @@
 namespace RPC;
 
 class Annotation {
+    private static $registeredMeta = [];
     private static $pool = [];
     /** @var \ReflectionMethod $reflection*/
     private $reflection = null;
-    public function __construct($class, $procedure) {
-        if (is_object($class)) {
-            $className = get_class($class);
-        }
+    public function __construct($class, $method) {
+        $className = is_object($class) ? get_class($class) : $class;
+
         if (!isset(self::$pool[$className])) {
             self::$pool[$className]['class'] = new \ReflectionClass($class);
         }
-        if (!isset(self::$pool[$className][$procedure])) {
+        if (!isset(self::$pool[$className][$method])) {
             /** @var \ReflectionClass $classReflection */
             $classReflection = self::$pool[$className]['class'];
-            self::$pool[$className][$procedure] = $classReflection->getMethod($procedure);
+            self::$pool[$className][$method] = $classReflection->getMethod($method);
         }
 
-        $this->reflection = self::$pool[$className][$procedure];
+        $this->reflection = self::$pool[$className][$method];
     }
 
-    public function isNeedLogin() {
-        return $this->getSingleMeta('needLogin', '.*');
+    public static function registerMeta($name, $pattern) {
+        self::$registeredMeta[$name] = $pattern;
     }
 
-    public function getHttpMethod() {
-        return $this->getSingleMeta('httpMethod', 'POST|GET');
-    }
-
-    public function getCacheTime() {
-        return $this->getSingleMeta('cacheTime', '\d+');
-    }
-
-    public function getSingleMeta($metaName, $valueRgex) {
-        preg_match('/@' . $metaName . '\s(' . $valueRgex . ')\s+/', $this->reflection->getDocComment(), $matches);
-
+    public function meta($name) {
+        $pattern = isset(self::$registeredMeta[$name]) ? self::$registeredMeta[$name] : null;
+        if (!$pattern) {
+            return null;
+        }
+        preg_match('/@' . $name . '\s(' . $pattern . ')\s+/', $this->reflection->getDocComment(), $matches);
         return count($matches) == 2 ? $matches[1] : null;
-    }
-
-    private function getDuplicateMeta() {
     }
 }
