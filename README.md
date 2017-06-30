@@ -26,7 +26,7 @@
 ### start application
     php -S localhost:8000 index.php
 ### call api
-    http://localhost:8000/Hellp.hello?name=world
+    http://localhost:8000/Hello.hello?name=world
 ## write your own
 ### procedure parser
     <?php
@@ -44,7 +44,7 @@
 ### logic
     <?php
     Annotation::registerMeta('method', 'GET|PUT|POST');
-    $parser = new MyPaarser
+    $parser = new MyParser
     $procedure = $parser->parse(null);
     $annotation = new Annotation($procedure->getClass(), $procedure->method);
     $method = $annotation->meta('method');
